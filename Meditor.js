@@ -7,7 +7,7 @@ var MEditor = {
     <Tooltip content="单击编辑" v-if="!edit" @click.native="edit=true" placement="top">
         <span class="m-span"><slot></slot></span>
     </Tooltip>
-    <Input v-else-if="type=='input'" v-model="currentValue" :type="inputType" @keydown.native.enter="close" :autofocus="true" title="敲击回车确认输入"/>
+    <Input v-else-if="type=='input'" v-model="currentValue" :type="inputType" @keydown.native.enter="close" :autofocus="true"/>
     <Select
             v-else-if="type=='select'"
             v-model="currentSelectValue"
@@ -59,11 +59,16 @@ var MEditor = {
             this.$emit('input',this.currentValue);
         },
         closeSelect(value){
-            this.edit = false;
+            if(!this.multiple){
+                this.edit = false;
+            }
             this.$emit('input',value);
         },
         onQuery(value){
             this.$emit('on-query',value);
+        },
+        finish(){
+            this.edit = false;
         }
     },
     mounted(){

@@ -1,0 +1,13 @@
+.idea
+.idea/
+.DS_Store
+node_modules/
+.project
+dist
+dist/*
+src/config/*.tmp
+src/config/env.js
+npm-debug.log
+webpack.base.config.js
+webpack.dev.config.js
+webpack.prod.config.js
