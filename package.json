@@ -1,0 +1,14 @@
+{
+  "name": "inlineEditor",
+  "title":"inlineEditor",
+  "version": "0.0.1",
+  "dependencies": {
+    "vue": "^2.5.10",
+    "iview": "^2.7.4"
+  },
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js"
+}

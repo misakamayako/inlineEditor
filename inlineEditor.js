@@ -1,14 +1,21 @@
 /***
-*  @author misaka
-*  @date 2017/12/6
-*/
-<style>
-    .m-span:hover{
-        background-color: lightgoldenrodyellow;
+ *  @author misaka
+ *  @date 2017/12/6
+ *  @licence MIT
+ *  @git https://github.com/misakamaiyako/inlineEditor
+ */
+;(function register (component) {
+    if( 'undefined' === typeof Vue ) {
+        throw 'inlineEditor requires Vue'
+    } else if ( 'undefined'===typeof iview ) {
+        throw 'inlineEditor requires iview(for temporary )'
+    } else {
+        Vue.component('inlineEditor',component)
     }
-</style>
-
-<template>
+})(this,function () {
+    return {
+        ///todo: change template to render function;
+        template:`
     <Tooltip content="单击编辑" v-if="!edit" @click.native="edit=true" placement="top">
         <span class="m-span"><slot></slot></span>
     </Tooltip>
@@ -24,10 +31,7 @@
             @on-change="closeSelect">
         <slot name="option"></slot>
     </Select>
-</template>
-
-<script>
-    export default {
+    `,
         props:{
             value:{
                 type:[String,Number,Object,Array],
@@ -78,6 +82,18 @@
             finish(){
                 this.edit = false;
             }
+        },
+        mounted(){
+            // let style=document.createElement('style');
+            // style.type='text/css';
+            // style.href='style.css';
+            // style.textContent = '.m-span:hover{background-color: lightgoldenrodyellow;}';
+            // document.getElementsByTagName('head')[0].appendChild(style);
+        },
+        watch:{
+            edit(value){
+                !value&&this.$emit("on-close",{ value: this.type==='input'?this.currentValue:this.currentSelectValue})
+            }
         }
-    };
-</script>
+    }
+});

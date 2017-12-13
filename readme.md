@@ -1,4 +1,4 @@
-# 点击编辑器
+# 行内编辑器
 >依赖于iview + Vue
 
 **input**
@@ -7,13 +7,18 @@
 
  属性| 说明 | 类型 | 默认值 | 是否必须 
  --- | -----| -----| -------| ---------
- value | 输入框的值，可以使用v-model双向绑定 | String、Number| 无| 是
+ value | 输入框的值，可以使用v-model双向绑定 | String、Number| -| 是
  type | 更改数据时的类型，可选值为`input`、`select` | String | input | 否
  inputType | 原生输入框的类型，可选值为`text`、`password`、`textarea`、`url`、`email`、`date` | String | text | 否
+ icon|input框尾部图标，仅在`inputType = text `下有效|String|-|否 
+ blurClose|是否在失焦时关闭输入|Boolean|false|否
  
  ***event***
  
-  无
+事件名| 说明 | 返回值
+---|---|---
+on-close|关闭编辑模式时触发|value
+on-click|在有icon时，点击icon触发|-
  
  ***methods***
  
