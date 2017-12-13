@@ -81,6 +81,9 @@
             },
             iconClick(){
                 this.$emit('on-click')
+            },
+            blur(){
+                blurClose === true && (this.edit = false);
             }
         },
         watch:{
