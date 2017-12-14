@@ -4,34 +4,77 @@
  *  @licence MIT
  *  @git https://github.com/misakamaiyako/inlineEditor
  */
-;(function register (component) {
+;(function register (everment,component) {
     if( 'undefined' === typeof Vue ) {
         throw 'inlineEditor requires Vue'
     } else if ( 'undefined'===typeof iview ) {
         throw 'inlineEditor requires iview(for temporary )'
     } else {
-        Vue.component('inlineEditor',component)
+        Vue.component('inlineEditor',component())
     }
 })(this,function () {
     return {
-        ///todo: change template to render function;
-        template:`
-    <Tooltip content="单击编辑" v-if="!edit" @click.native="edit=true" placement="top">
-        <span class="m-span"><slot></slot></span>
-    </Tooltip>
-    <Input v-else-if="type=='input'" v-model="currentValue" :type="inputType" @keydown.native.enter="close" :autofocus="true"/>
-    <Select
-            v-else-if="type=='select'"
-            v-model="currentSelectValue"
-            :label-in-value="true"
-            :filterable="filterable"
-            :multiple="multiple"
-            :loading="loading"
-            @on-query-change = 'onQuery'
-            @on-change="closeSelect">
-        <slot name="option"></slot>
-    </Select>
-    `,
+       render(_h){
+           let _vm = this;
+           let _c = _vm._self._c || _h;
+           return (!_vm.edit) ? _c('Tooltip', {
+               attrs: {
+                   "content": "单击编辑",
+                   "placement": "top"
+               },
+               nativeOn: {
+                   "click": function($event) {
+                       _vm.edit = true
+                   }
+               }
+           }, [_c('span', {
+               staticClass: "m-span"
+           }, [_vm._t("default")], 2)]) : (_vm.type == 'input') ? _c('Input', {
+               ref: "input",
+               attrs: {
+                   "type": _vm.inputType,
+                   "autofocus": true,
+                   "icon": _vm.icon
+               },
+               on: {
+                   "on-click": _vm.iconClick,
+                   "on-blur": _vm.blur
+               },
+               nativeOn: {
+                   "keydown": function($event) {
+                       if (!('button'in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) {
+                           return null;
+                       }
+                       _vm.close($event)
+                   }
+               },
+               model: {
+                   value: (_vm.currentValue),
+                   callback: function($$v) {
+                       _vm.currentValue = $$v
+                   },
+                   expression: "currentValue"
+               }
+           }) : (_vm.type == 'select') ? _c('Select', {
+               attrs: {
+                   "label-in-value": true,
+                   "filterable": _vm.filterable,
+                   "multiple": _vm.multiple,
+                   "loading": _vm.loading
+               },
+               on: {
+                   "on-query-change": _vm.onQuery,
+                   "on-change": _vm.closeSelect
+               },
+               model: {
+                   value: (_vm.currentSelectValue),
+                   callback: function($$v) {
+                       _vm.currentSelectValue = $$v
+                   },
+                   expression: "currentSelectValue"
+               }
+           }, [_vm._t("option")], 2) : _vm._e()
+       },
         props:{
             value:{
                 type:[String,Number,Object,Array],
@@ -54,6 +97,11 @@
             },
             multiple:Boolean,
             loading:{
+                type:Boolean,
+                default:false
+            },
+            icon:String,
+            blurClose:{
                 type:Boolean,
                 default:false
             }
@@ -84,11 +132,6 @@
             }
         },
         mounted(){
-            // let style=document.createElement('style');
-            // style.type='text/css';
-            // style.href='style.css';
-            // style.textContent = '.m-span:hover{background-color: lightgoldenrodyellow;}';
-            // document.getElementsByTagName('head')[0].appendChild(style);
         },
         watch:{
             edit(value){

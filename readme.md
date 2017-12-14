@@ -5,55 +5,55 @@
 
 ***props***
 
- 属性| 说明 | 类型 | 默认值 | 是否必须 
- --- | -----| -----| -------| ---------
- value | 输入框的值，可以使用v-model双向绑定 | String、Number| -| 是
- type | 更改数据时的类型，可选值为`input`、`select` | String | input | 否
- inputType | 原生输入框的类型，可选值为`text`、`password`、`textarea`、`url`、`email`、`date` | String | text | 否
- icon|input框尾部图标，仅在`inputType = text `下有效|String|-|否 
- blurClose|是否在失焦时关闭输入|Boolean|false|否
- 
+| 属性 | 说明| 类型 | 默认值   | 是否必须 |
+| --------- | ---------- | ------ | ----- | ---- |
+| value     | 输入框的值，可以使用v-model双向绑定                    | String、Number | -     | 是    |
+| type      | 更改数据时的类型，可选值为`input`、`select`            | String        | input | 否    |
+| inputType | 原生输入框的类型，可选值为`text`、`password`、`textarea`、`url`、`email`、`date` | String        | text  | 否    |
+| icon      | input框尾部图标，仅在`inputType = text `下有效      | String        | -     | 否    |
+| blurClose | 是否在失焦时关闭输入                               | Boolean       | false | 否    |
+
  ***event***
- 
-事件名| 说明 | 返回值
----|---|---
-on-close|关闭编辑模式时触发|value
-on-click|在有icon时，点击icon触发|-
- 
+
+| 事件名      |        说明        | 返回值   |
+| -------- | :--------------: | ----- |
+| on-close |    关闭编辑模式时触发     | value |
+| on-click | 在有icon时，点击icon触发 | -     |
+
  ***methods***
- 
- 方法名|说明|参数|返回值
- ---|---|---|---
- finish|手动关闭输入框或者选择器（在复选模式下必须使用该参数关闭选择器）|-|-
- 
+
+| 方法名    | 说明 | 参数   | 返回值  |
+| ------ | -------------: | ---- | ---- |
+| finish | 手动关闭输入框或者选择器（在复选模式下必须使用该参数关闭选择器） | -    | -    |
+
  **selectType**
- 
+
  ***props***
- 
- 属性| 说明 | 类型 | 默认值 | 是否必须 
-  --- | -----| -----| -------| ---------
-   value | select | Number、String、Array| 无| 是
-  filterable | 是否可以搜索 | boolean | false | 否
-  multiple | 是否可以多选 | boolean | false | 否
-  loading | 是否显示加载中 | boolean | false | 否
-  
+
+| 属性         | 说明      | 类型                  | 默认值   | 是否必须 |
+| ---------- | ------- | ------------------- | ----- | ---- |
+| value      | select  | Number、String、Array | 无     | 是    |
+| filterable | 是否可以搜索  | boolean             | false | 否    |
+| multiple   | 是否可以多选  | boolean             | false | 否    |
+| loading    | 是否显示加载中 | boolean             | false | 否    |
+
    ***event***
-   
-   事件名| 说明 | 返回值
-   --- | -----| -----
-   on-query | 搜索词变化时触发 | query
-   
+
+| 事件名      | 说明       | 返回值   |
+| -------- | -------- | ----- |
+| on-query | 搜索词变化时触发 | query |
+
    **slot**
-   
-   名称 | 说明
-   ---|---
-   无 | 默认显示的文本
-   option | 选择器的选项
-     
+
+| 名称     | 说明      |
+| ------ | ------- |
+| 无      | 默认显示的文本 |
+| option | 选择器的选项  |
+
   ***methods***
-  
+
   见select部分
-     
+​     
    ##使用：
    ```
 <template>
@@ -88,5 +88,4 @@ on-click|在有icon时，点击icon触发|-
             }
         };
 </script>
-```
-   
+   ```
