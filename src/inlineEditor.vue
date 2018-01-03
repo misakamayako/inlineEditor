@@ -2,24 +2,35 @@
 *  @author misaka
 *  @date 2017/12/6
 *  @licence MIT
-*  @git https://github.com/misakamaiyako/inlineEditor
+*  @github https://github.com/misakamaiyako/inlineEditor
 */
 <template>
     <Tooltip content="单击编辑" v-if="!edit" @click.native="edit=true" placement="top">
         <span class="m-span"><slot></slot></span>
     </Tooltip>
-    <Input v-else-if="type=='input'" v-model="currentValue" :type="inputType" @keydown.native.enter="close" :autofocus="true" :icon="icon" @on-click="iconClick" ref="input" @on-blur="blur"/>
-    <Select
-            v-else-if="type=='select'"
-            v-model="currentSelectValue"
-            :label-in-value="true"
-            :filterable="filterable"
-            :multiple="multiple"
-            :loading="loading"
-            @on-query-change = 'onQuery'
-            @on-change="closeSelect">
-        <slot name="option"></slot>
-    </Select>
+    <div v-else-if="type=='input'" :class="{ 'complex-inline': showSwitch }">
+        <Input v-model="currentValue" :type="inputType" @keydown.native.enter="close" :autofocus="true" :icon="icon" @on-click="iconClick" ref="input" @on-blur="blur"/>
+        <div class="inline-append" v-if="showSwitch">
+            <a href="javascript: void 0"><Icon type="checkmark-round" style="margin-right: .5rem;" @click.native="append(true)"></Icon></a>
+            <a href="javascript: void 0"><Icon type="close-round" @click.native="append(false)"></Icon></a>
+        </div>
+    </div>
+    <div  v-else-if="type=='select'" :class="{ 'complex-inline': showSwitch }">
+        <Select
+                v-model="currentSelectValue"
+                :label-in-value="true"
+                :filterable="filterable"
+                :multiple="multiple"
+                :loading="loading"
+                @on-query-change = 'onQuery'
+                @on-change="closeSelect">
+            <slot name="option"></slot>
+        </Select>
+        <div class="inline-append" v-if="showSwitch">
+            <a href="javascript: void 0"><Icon type="checkmark-round" style="margin-right: .5rem;" @click.native="append(true)"></Icon></a>
+            <a href="javascript: void 0"><Icon type="close-round" @click.native="append(false)"></Icon></a>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -44,7 +55,10 @@
                 type:Boolean,
                 default:false
             },
-            multiple:Boolean,
+            multiple:{
+                type: Boolean,
+                default: false
+            },
             loading:{
                 type:Boolean,
                 default:false
@@ -53,9 +67,13 @@
             blurClose:{
                 type:Boolean,
                 default:false
+            },
+            showSwitch: {
+                type: Boolean,
+                default: false
             }
         },
-        data(){
+        data () {
             return {
                 edit:false,
                 currentValue:this.value,
@@ -63,27 +81,35 @@
             };
         },
         methods:{
-            close(){
+            close () {
                 this.edit = false;
                 this.$emit('input',this.currentValue);
             },
-            closeSelect(value){
-                if(!this.multiple){
+            closeSelect (value) {
+                if(!(!this.multiple||this.blurClose)){
                     this.edit = false;
+                    this.$emit('input',value);
                 }
-                this.$emit('input',value);
             },
-            onQuery(value){
+            onQuery (value) {
                 this.$emit('on-query',value);
             },
-            finish(){
+            finish () {
                 this.edit = false;
             },
-            iconClick(){
+            iconClick () {
                 this.$emit('on-click')
             },
-            blur(){
-                blurClose === true && (this.edit = false);
+            blur (){
+                this.blurClose === true && (this.edit = false);
+            },
+            append (bool) {
+                if(bool){
+                    this.edit = false;
+                    this.$emit('input',this.type === 'input' ? this.currentValue : this.currentSelectValue);
+                } else {
+                    this.edit = false;
+                }
             }
         },
         watch:{
@@ -91,7 +117,11 @@
                 if(!value) {
                     this.$emit("on-close", {value: this.type === 'input' ? this.currentValue : this.currentSelectValue})
                 } else {
-                    'input' === this.type&&this.$refs.input.focus();
+                    this.$nextTick(() => {
+                        'input' === this.type&&this.$refs.input.focus();
+                        this.currentValue = this.value;
+                        this.currentSelectValue = this.value;
+                    })
                 }
             }
         }

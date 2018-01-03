@@ -1,3 +1,15 @@
 .m-span:hover{
     background-color: lightgoldenrodyellow;
 }
+.complex-inline {
+    display: table;
+    width: 100%;
+}
+.inline-append{
+    width: 3rem;
+    display: table-cell;
+    text-align: center;
+}
+.inline-append .ivu-icon-close-round {
+    color: #FF9900
+}
