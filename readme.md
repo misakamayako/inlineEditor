@@ -5,87 +5,55 @@
 
 ***props***
 
-| 属性 | 说明| 类型 | 默认值   | 是否必须 |
+| value | description | type | default   | is required |
 | --------- | ---------- | ------ | ----- | ---- |
-| value     | 输入框的值，可以使用v-model双向绑定                    | String、Number | -     | 是    |
-| type      | 更改数据时的类型，可选值为`input`、`select`            | String        | input | 否    |
-| inputType | 原生输入框的类型，可选值为`text`、`password`、`textarea`、`url`、`email`、`date` | String        | text  | 否    |
-| icon      | input框尾部图标，仅在`inputType = text `下有效      | String        | -     | 否    |
-| blurClose | 是否在失焦时关闭输入                               | Boolean       | false | 否    |
+| value     | value,able to use 'v-model'                    | String、Number | -     | yes    |
+| type      | component type,`input`、`select` are acceptable value            | String        | input | no    |
+| inputType | typeof input, `text`、`password`、`textarea`、`url`、`email`、`date` are acceptable value | String  | text  | no    |
+| icon      | icon after input, only works in `inputType = text `  | String        | -     | no    |
+| blurClose | set value to true to close when blur                           | Boolean       | false | no    |
+| showSwitch | show confirms, choose X will cancel operation | Boolean | false | true |
 
  ***event***
 
-| 事件名      |        说明        | 返回值   |
+| event name      |        description        |  returned value   |
 | -------- | :--------------: | ----- |
-| on-close |    关闭编辑模式时触发     | value |
-| on-click | 在有icon时，点击icon触发 | -     |
+| on-close |    fired when close     | value |
+| on-click | fired when click the icon | -     |
 
  ***methods***
 
-| 方法名    | 说明 | 参数   | 返回值  |
+| name    | description | payload   |  returned value |
 | ------ | -------------: | ---- | ---- |
-| finish | 手动关闭输入框或者选择器（在复选模式下必须使用该参数关闭选择器） | -    | -    |
+| finish | close inlineEditor(must use this function to close while multiple is true ) | -    | -    |
 
  **selectType**
 
  ***props***
 
-| 属性         | 说明      | 类型                  | 默认值   | 是否必须 |
+| value | description | type | default   | is required |
 | ---------- | ------- | ------------------- | ----- | ---- |
-| value      | select  | Number、String、Array | 无     | 是    |
-| filterable | 是否可以搜索  | boolean             | false | 否    |
-| multiple   | 是否可以多选  | boolean             | false | 否    |
-| loading    | 是否显示加载中 | boolean             | false | 否    |
+| value      | select  | Number、String、Array | 无     | no    |
+| filterable | is filterable  | boolean             | false | no    |
+| multiple   | 是否可以多选  | boolean             | false | no    |
+| loading    | 是否显示加载中 | boolean             | false | no    |
 
    ***event***
 
-| 事件名      | 说明       | 返回值   |
+| event name      |        description        |  returned value   |
 | -------- | -------- | ----- |
-| on-query | 搜索词变化时触发 | query |
+| on-query | fired when query-string is changed | query |
 
    **slot**
 
-| 名称     | 说明      |
+| name     | description      |
 | ------ | ------- |
-| 无      | 默认显示的文本 |
-| option | 选择器的选项  |
+| default      | text to display |
+| option | options  |
 
   ***methods***
 
   见select部分
 ​     
-   ##使用：
-   ```
-<template>
-      <MEditor v-model="text" type="select" style="width: 500px" :filterable="true" @on-query="query" :multiple="true">
-            {{text}}
-            <template slot="option">
-                <Option :value="123">selectable</Option>
-                <Option :value="333">ff</Option>
-            </template>
-        </MEditor>
-        
-        <MEditor v-model="text" type="input" style="width: 500px">
-        {{text}}
-        </MEditor>
-        
-</template>
-<script>
-     import MEditor from './MEditor.vue';
-        export default {
-            components:{
-                MEditor
-            },
-            data(){
-                return {
-                    text:[]
-                };
-            },
-            methods:{
-                query(value){
-                   ///remote query
-                }
-            }
-        };
-</script>
-   ```
+  ##example
+   [comprehensive](./dist/example.html)

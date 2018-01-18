@@ -1,15 +1,21 @@
+.m-span {
+    cursor: pointer;
+}
 .m-span:hover{
     background-color: lightgoldenrodyellow;
 }
 .complex-inline {
-    display: table;
+    display: flex;
     width: 100%;
+    align-items: center;
 }
 .inline-append{
     width: 3rem;
-    display: table-cell;
     text-align: center;
 }
 .inline-append .ivu-icon-close-round {
     color: #FF9900
+}
+.complex-inline .ivu-select {
+    width: calc(100% - 3rem);
 }

@@ -23,7 +23,8 @@
                 :multiple="multiple"
                 :loading="loading"
                 @on-query-change = 'onQuery'
-                @on-change="closeSelect">
+                @on-change="closeSelect"
+                style=" flex-grow:1">
             <slot name="option"></slot>
         </Select>
         <div class="inline-append" v-if="showSwitch">
@@ -115,13 +116,13 @@
         watch:{
             edit(value){
                 if(!value) {
-                    this.$emit("on-close", {value: this.type === 'input' ? this.currentValue : this.currentSelectValue})
+                    this.$emit('on-close', {value: this.type === 'input' ? this.currentValue : this.currentSelectValue});
                 } else {
                     this.$nextTick(() => {
                         'input' === this.type&&this.$refs.input.focus();
                         this.currentValue = this.value;
                         this.currentSelectValue = this.value;
-                    })
+                    });
                 }
             }
         }
