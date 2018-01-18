@@ -1,5 +1,5 @@
-# 行内编辑器
->依赖于iview + Vue
+# inlineEditor
+>depends on  iview + Vue
 
 **input**
 
@@ -35,8 +35,8 @@
 | ---------- | ------- | ------------------- | ----- | ---- |
 | value      | select  | Number、String、Array | 无     | no    |
 | filterable | is filterable  | boolean             | false | no    |
-| multiple   | 是否可以多选  | boolean             | false | no    |
-| loading    | 是否显示加载中 | boolean             | false | no    |
+| multiple   | is multiple  | boolean             | false | no    |
+| loading    | is show loading | boolean             | false | no    |
 
    ***event***
 
@@ -53,7 +53,7 @@
 
   ***methods***
 
-  见select部分
+  refers input part
 ​     
   ##example
    [comprehensive](./dist/example.html)
