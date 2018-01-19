@@ -56,4 +56,4 @@
   refers input part
 ​     
   ##example
-   [comprehensive](./dist/example.html)
+   [comprehensive](https://misakamaiyako.github.io/inlineEditor/)
