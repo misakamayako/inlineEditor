@@ -87,7 +87,7 @@
                 this.$emit('input',this.currentValue);
             },
             closeSelect (value) {
-                if(!(!this.multiple||this.blurClose)){
+               if(!this.multiple&&this.blurClose){
                     this.edit = false;
                     this.$emit('input',value);
                 }
