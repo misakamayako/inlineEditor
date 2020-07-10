@@ -1,0 +1,15 @@
+singleQuote: false
+trailingComma: es5
+printWidth: 80
+tabWidth: 2
+useTabs: true
+bracketSpacing: true
+jsxSingleQuote: false
+jsxBracketSameLine: true
+endOfLine: crlf
+parser: vue
+overrides:
+  -
+    files: .prettierrc.yaml
+    options:
+      parser: yaml
